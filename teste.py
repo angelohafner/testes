@@ -1,9 +1,23 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import plotly.express as px
 
-chart_data = pd.DataFrame(
-     np.random.randn(20, 3),
-     columns=['a', 'b', 'c'])
+t = np.linspace(0, 10, 111)
+y1=np.cos(t)
+y2=np.sin(t)
+yy = [y1, y2]
 
-st.line_chart(chart_data)
+source = pd.DataFrame({
+     'cosseno': y1,
+     'seno': y2,
+     'index': t
+})
+
+
+fig = px.line(source, x="index", y=['cosseno', 'seno'],
+              labels={"index": "h",
+                     "value": "Z [ddd]",
+                     "variable": ""})
+
+st.plotly_chart(fig, use_container_width=False)
